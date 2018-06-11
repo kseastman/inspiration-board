@@ -17,12 +17,16 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    let BASE_URL = this.props.url
+    const BASE_URL = this.props.url
     const BOARD = this.props.boardName
+    const CARDS = '/cards'
 
-    axios.get(BASE_URL += BOARD)
+    axios.get(BASE_URL + BOARD + CARDS)
     .then((response) => {
       console.log(response.data)
+      const cards = response.data;
+
+      this.setState({cards: cards});
     })
     .catch((error) => {
       console.log(error)
@@ -30,9 +34,17 @@ class Board extends Component {
   }
 
   render() {
+    const cardCollection = this.state.cards.map((post) => {
+          return <Card
+            key={post.card.id}
+            emoji={post.card.emoji}
+            text={post.card.text}
+            />
+        })
+
     return (
       <div className="board">
-        Board
+        {cardCollection}
       </div>
     )
   }
