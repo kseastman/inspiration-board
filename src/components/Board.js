@@ -16,9 +16,22 @@ class Board extends Component {
     };
   }
 
+  componentDidMount() {
+    let BASE_URL = this.props.url
+    const BOARD = this.props.boardName
+
+    axios.get(BASE_URL += BOARD)
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
   render() {
     return (
-      <div>
+      <div className="board">
         Board
       </div>
     )
@@ -27,7 +40,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-
+  url: PropTypes.string.isRequired,
+  boardName: PropTypes.string.isRequired
 };
 
 export default Board;
