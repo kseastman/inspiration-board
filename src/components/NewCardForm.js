@@ -30,7 +30,6 @@ export default class NewCardForm extends Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
 
     this.props.addCardCallback(this.state)
     let updateState = {};

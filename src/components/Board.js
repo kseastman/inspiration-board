@@ -43,12 +43,10 @@ class Board extends Component {
 
     axios.patch(CARD)
     .then((response) => {
-      console.log(response.data)
       let updateState = {}
       updateState = this.state
       const newCard = response.data
       updateState.cards[index] = newCard;
-      console.log(updateState);
       updateState['editing'] = '';
 
       this.setState(updateState);
@@ -67,7 +65,6 @@ class Board extends Component {
 
     axios.post(CARD)
     .then((response) => {
-      console.log(response.data)
       let updateState = {};
       updateState = this.state;
 
@@ -89,7 +86,6 @@ class Board extends Component {
 
     axios.delete(CARD)
     .then((response) => {
-      console.log(response.data);
       let updateState = {}
       updateState = this.state;
 
@@ -105,13 +101,11 @@ class Board extends Component {
   }
 
   toggleEditing = ( itemId ) => {
-    console.log(this.state);
     let updateState = {};
     updateState = this.state;
     updateState['editing'] = itemId
 
     this.setState(updateState);
-    console.log(this.state);
   }
 
   renderItemOrEditField( item, index ) {

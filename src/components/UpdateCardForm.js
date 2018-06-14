@@ -44,7 +44,6 @@ export default class UpdateCardForm extends Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
 
     this.props.updateCardCallback(this.state, this.props.index)
 
@@ -53,7 +52,6 @@ export default class UpdateCardForm extends Component {
       text: ''
     }
     this.setState = (resetState);
-    this.forceUpdate()
   }
 
   render() {
