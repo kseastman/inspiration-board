@@ -28,6 +28,7 @@
 }
 
 .card__content-text {
+  max-height: 115px;
   text-overflow: ellipsis;
   overflow: hidden;
 }
@@ -44,4 +45,12 @@
 .card__delete {
   align-self: start;
   font-family: 'Permanent Marker', Helvetica, sans-serif;
+  cursor: pointer;
+}
+
+.card__update {
+  align-self: end;
+  grid-column: 3 / 3;
+  font-family: 'Permanent Marker', Helvetica, sans-serif;
+  cursor: pointer;
 }

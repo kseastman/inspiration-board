@@ -24,7 +24,6 @@ export default class NewCardForm extends Component {
     let updatedInput = this.state;
 
     updatedInput[event.target.name] = event.target.value;
-    console.log(this);
 
     this.setState(updatedInput);
   }
@@ -34,17 +33,17 @@ export default class NewCardForm extends Component {
     console.log(this.state);
 
     this.props.addCardCallback(this.state)
-
     let updateState = {};
     updateState = this.state;
+
     updateState['emoji'] = '';
     updateState['text'] = '';
 
-    console.log(this.state)
-
-    // ** for no reason I can discern, this was breaking my form
-    // this.setState = (updateState);
-
+    // inexplicably, this stopped working but directly assigning it fixed my bug
+    // this.setState = ({
+    //   emoji: '',
+    //   text: ''
+    // });
   }
 
   render() {

@@ -5,7 +5,8 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+import UpdateCardForm from './UpdateCardForm';
+// import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor() {
@@ -13,6 +14,7 @@ class Board extends Component {
 
     this.state = {
       cards: [],
+      editing: '',
     };
   }
 
@@ -23,7 +25,6 @@ class Board extends Component {
 
     axios.get(BASE_URL + BOARD + CARDS)
     .then((response) => {
-      console.log(response.data)
       const cards = response.data;
 
       this.setState({cards: cards});
@@ -31,6 +32,32 @@ class Board extends Component {
     .catch((error) => {
       console.log(error)
     })
+  }
+
+  updateCard = (card, index) => {
+    const editingCard = this.state.cards[index].card
+
+    const BASE_URL = this.props.url
+    const BOARD = this.props.boardName
+    const CARD = `${BASE_URL + BOARD}/cards/${editingCard.id}?emoji=${card.emoji}&text=${card.text}`
+
+    axios.patch(CARD)
+    .then((response) => {
+      console.log(response.data)
+      let updateState = {}
+      updateState = this.state
+      const newCard = response.data
+      updateState.cards[index] = newCard;
+      console.log(updateState);
+      updateState['editing'] = '';
+
+      this.setState(updateState);
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
+
   }
 
   addCard = (card) => {
@@ -77,32 +104,36 @@ class Board extends Component {
     })
   }
 
-  // renderItemOrEditField( item, index ) {
-  //   if ( this.state.editing === item.id ) {
-  //     return <UpdateCardForm key={`editing-${index}`} card={item} index={index} updateCardCallback={this.updateCard}/>
-  //   } else {
-  //     return <Card
-  //       key={item.id}
-  //       id={item.id}
-  //       index={index}
-  //       emoji={item.emoji}
-  //       text={item.text}
-  //       removeCardCallback={this.removeCard}
-  //       />
-  //   }
-  // }
+  toggleEditing = ( itemId ) => {
+    console.log(this.state);
+    let updateState = {};
+    updateState = this.state;
+    updateState['editing'] = itemId
+
+    this.setState(updateState);
+    console.log(this.state);
+  }
+
+  renderItemOrEditField( item, index ) {
+    if ( this.state.editing === item.id ) {
+      return <UpdateCardForm key={`editing-${index}`} card={item} index={index} updateCardCallback={this.updateCard}/>
+    } else {
+      return <Card
+        key={item.id}
+        updateClickCallback={ this.toggleEditing.bind( null, item.id ) }
+        id={item.id}
+        index={index}
+        emoji={item.emoji}
+        text={item.text}
+        removeCardCallback={this.removeCard}
+        />
+    }
+  }
 
   render() {
-    const cardCollection = this.state.cards.map((post, index) => {
-          return <Card
-            key={post.card.id}
-            id={post.card.id}
-            index={index}
-            emoji={post.card.emoji}
-            text={post.card.text}
-            removeCardCallback={this.removeCard}
-            />
-        })
+    const cardCollection = this.state.cards.map(( post, index ) => {
+      return this.renderItemOrEditField( post.card, index );
+    })
 
     return (
       <section className="board">
