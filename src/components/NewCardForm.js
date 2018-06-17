@@ -26,8 +26,8 @@ export default class NewCardForm extends Component {
     super();
 
     this.state = {
-      emoji: '',
-      text: ''
+      emoji: 'heart_eyes',
+      text: 'Type here to add a new post-it!'
     }
   }
   myCallback = (event) => {
@@ -57,29 +57,25 @@ export default class NewCardForm extends Component {
 
   render() {
     const selectEmoji = EMOJI_LIST.map((emoji1, index) => {
-      return <option key={index }value={emoji1}>{emoji.getUnicode(emoji1)}</option>
+      return <option key={index }value={emoji1} className='card__content-emoji'>{emoji.getUnicode(emoji1)}</option>
     })
 
     return (
-      <section className="new-card-form">
-        <header className="new-card-form__header">
-          <h2>Add New Card</h2>
-        </header>
-        <form className="new-card-form__form" onSubmit={this.onFormSubmit} >
-          <article>
-          <label className="new-card-form__form-label"  htmlFor="emoji">Emoji: </label>
+
+      <article className="new-card">
+      <section className="new-card__content">
           <select className="new-card-form__form-select" name="emoji" defaultValue={this.state.emoji} onChange={this.onInputChange}>
             {selectEmoji}
           </select>
-          </article>
-          <article>
-            <label className="new-card-form__form-label"  htmlFor="message">Message: </label>
-            <input type="textarea" className="new-card-form__form-textarea"
+            <textarea
+              rows="5"
+              type="text"
+              className="new-card__content-text"
               name="text" value={this.state.text} onChange={this.onInputChange} />
+            <button className="new-card-form__form-button" onClick={this.onFormSubmit}>Add Card</button>
+            </section>
           </article>
-            <input className="new-card-form__form-button" type="submit" value="Submit" />
-          </form>
-        </section>
+
       )
     }
   }

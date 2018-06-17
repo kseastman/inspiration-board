@@ -156,9 +156,9 @@ class Board extends Component {
 
     return (
       <section className="board">
+        <NewCardForm addCardCallback={this.addCard}/>
         <ChangeBoardForm key='' changeBoardCallback={this.props.changeBoardCallback} currentBoard={this.props.boardName} allBoards={this.state.allBoards}/>
         {cardCollection}
-        <NewCardForm addCardCallback={this.addCard}/>
       </section>
     )
   }
