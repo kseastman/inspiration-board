@@ -61,7 +61,7 @@ class Board extends Component {
       this.props.updateStatusCallback(error.message, 'error')
     })
   }
-  
+
   updateCard = (card, index) => {
     const editingCard = this.state.cards[index].card
 

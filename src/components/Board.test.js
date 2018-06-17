@@ -12,6 +12,7 @@ it('renders without crashing', () => {
     url="https://inspiration-board.herokuapp.com/boards/"
     boardName={`kat`}
     changeBoardCallback={callback}
+    updateStatusCallback={callback}
     />);
 
     expect(boardComponent).toMatchSnapshot();
