@@ -13,19 +13,4 @@ describe('NewCardForm', () => {
 
     newCardForm.unmount();
   });
-
-  test('Invokes callback on form submission', () => {
-    const callback = jest.fn();
-    const cardForm = shallow(
-      <NewCardForm addCardCallback={callback} />
-    );
-    cardForm.find('form').simulate('submit', {
-      preventDefault: () => {}    })
-    expect(callback).toHaveBeenCalled();
-    expect(callback.mock.calls[0][0]).toEqual(
-      {
-        "emoji": "",
-        "text": ""}
-      )
-  });
 });

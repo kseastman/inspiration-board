@@ -4,13 +4,13 @@ exports[`renders without crashing 1`] = `
 <section
   className="board"
 >
+  <NewCardForm
+    addCardCallback={[Function]}
+  />
   <ChangeBoardForm
     allBoards={Array []}
     changeBoardCallback={[Function]}
     currentBoard="kat"
-  />
-  <NewCardForm
-    addCardCallback={[Function]}
   />
 </section>
 `;
