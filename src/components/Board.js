@@ -6,19 +6,33 @@ import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
 import UpdateCardForm from './UpdateCardForm';
+import ChangeBoardForm from './ChangeBoardForm';
 // import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       cards: [],
       editing: '',
+      // currentBoard: props.boardName,
+      allBoards: []
     };
   }
 
+  componentDidUpdate(prevProps) {
+    //only update the board if the boardName has changed
+  if (prevProps.boardName !== this.props.boardName) {
+    this.setBoard();
+  }
+}
+
   componentDidMount() {
+    this.setBoard();
+  }
+
+  setBoard() {
     const BASE_URL = this.props.url
     const BOARD = this.props.boardName
     const CARDS = '/cards'
@@ -32,8 +46,20 @@ class Board extends Component {
     .catch((error) => {
       console.log(error)
     })
-  }
 
+    axios.get(BASE_URL)
+    .then((response) => {
+      const boards = response.data;
+      let updateState = Object.assign({}, this.state)
+      boards.forEach((element) => {
+        updateState.allBoards.push(element.board.name)
+      });
+      this.setState(updateState);
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
   updateCard = (card, index) => {
     const editingCard = this.state.cards[index].card
 
@@ -43,8 +69,7 @@ class Board extends Component {
 
     axios.patch(CARD)
     .then((response) => {
-      let updateState = {}
-      updateState = this.state
+      let updateState = Object.assign({}, this.state)
       const newCard = response.data
       updateState.cards[index] = newCard;
       updateState['editing'] = '';
@@ -65,8 +90,7 @@ class Board extends Component {
 
     axios.post(CARD)
     .then((response) => {
-      let updateState = {};
-      updateState = this.state;
+      let updateState = Object.assign({}, this.state);
 
       const newCard = response.data;
       updateState.cards.push(newCard);
@@ -86,8 +110,7 @@ class Board extends Component {
 
     axios.delete(CARD)
     .then((response) => {
-      let updateState = {}
-      updateState = this.state;
+      let updateState = Object.assign({}, this.state);
 
       const cardIndex = card.index;
       updateState.cards.splice(cardIndex, 1);
@@ -101,8 +124,7 @@ class Board extends Component {
   }
 
   toggleEditing = ( itemId ) => {
-    let updateState = {};
-    updateState = this.state;
+    let updateState = Object.assign({}, this.state);
     updateState['editing'] = itemId
 
     this.setState(updateState);
@@ -131,10 +153,9 @@ class Board extends Component {
 
     return (
       <section className="board">
+        <ChangeBoardForm key='' changeBoardCallback={this.props.changeBoardCallback} currentBoard={this.props.boardName} allBoards={this.state.allBoards}/>
         {cardCollection}
-        <article>
-          <NewCardForm addCardCallback={this.addCard}/>
-        </article>
+        <NewCardForm addCardCallback={this.addCard}/>
       </section>
     )
   }

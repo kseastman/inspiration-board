@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "emoji-dictionary": "^1.0.9",
+    "emoji-picker-react": "^2.0.4",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4"
@@ -25,7 +26,9 @@
     "jest-mock-axios": "^2.1.11"
   },
   "jest": {
-    "snapshotSerializers": ["enzyme-to-json/serializer"]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "homepage": "http://adagold.github.io/inspiration-board"
 }

@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './UpdateCardForm.css';
 
-const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+// const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+const EMOJI_LIST = emoji.names.slice(0,599);
+// EMOJI_LIST.push(emoji.names.slice(900,999));
 
 export default class UpdateCardForm extends Component {
 
@@ -13,7 +15,7 @@ export default class UpdateCardForm extends Component {
     index: PropTypes.number
   }
 
-  constructor(props) {
+  constructor() {
     super();
 
     this.state = {
@@ -25,18 +27,17 @@ export default class UpdateCardForm extends Component {
   componentDidMount() {
     const card = this.props.card
 
-    let newState = {}
-    newState = this.state
+    let newState = Object.assign({}, this.state);
 
     newState['emoji'] = card.emoji
     newState['text'] = card.text
 
-    this.setState(newState)
+    this.setState(newState);
   }
 
   onInputEdit = (event) => {
-    let updatedInput = this.state;
-
+    let updatedInput = Object.assign({}, this.state);
+    console.log(EMOJI_LIST);
     updatedInput[event.target.name] = event.target.value;
 
     this.setState(updatedInput);
@@ -72,7 +73,7 @@ export default class UpdateCardForm extends Component {
             rows="5"
               type="text"
               className="update-card__content-text"
-              name="text" value={this.state.text} onChange={this.onInputChange} />
+              name="text" value={this.state.text} onChange={this.onInputEdit} />
           </article>
             <button className="update-card-form__form-button" onClick={this.onFormSubmit}>Update Card</button>
         </section>

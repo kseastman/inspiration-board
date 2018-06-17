@@ -3,6 +3,33 @@ import './App.css';
 import Board from './components/Board';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currentBoard: 'kat',
+      previousBoard: ''
+    }
+  }
+
+  componentDidUpdate(prevState) {
+
+    if (this.state.currentBoard !== prevState.currentBoard) {
+
+      console.log(this.state);
+    }
+
+  }
+
+  changeBoard = (board) => {
+
+    let updateState = Object.assign({}, this.state);
+    updateState['previousBoard'] = this.state.currentBoard;
+    updateState['currentBoard'] = board.boardName;
+
+    this.setState(updateState);
+  }
+
   render() {
     return (
       <section>
@@ -11,7 +38,8 @@ class App extends Component {
         </header>
         <Board key=""
           url="https://inspiration-board.herokuapp.com/boards/"
-          boardName={`kat`}
+          boardName={this.state.currentBoard}
+          changeBoardCallback={this.changeBoard}
           />
       </section>
     );

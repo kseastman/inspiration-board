@@ -15,6 +15,41 @@
   align-items: center;
 }
 
+.card:nth-of-type(4n+5) {
+  -o-transform:rotate(-1.5deg);
+  -webkit-transform:rotate(-1.5deg);
+  -moz-transform:rotate(-1.5deg);
+  position:relative;
+  top:-2px;
+  background:rgb(225, 204, 255);
+}
+
+.card:nth-of-type(3n+9){
+  -o-transform:rotate(.5deg);
+  -webkit-transform:rotate(.5deg);
+  -moz-transform:rotate(.5deg);
+  position:relative;
+  top:5px;
+  background:rgb(204, 255, 204);
+}
+
+.card:nth-of-type(4n+3){
+  -o-transform:rotate(-1deg);
+  -webkit-transform:rotate(-1deg);
+  -moz-transform:rotate(-1deg);
+  position:relative;
+  top:5px;
+  background: rgb(255, 220, 70);
+}
+
+.card:nth-of-type(4n+2){
+  -o-transform:rotate(1deg);
+  -webkit-transform:rotate(1deg);
+  -moz-transform:rotate(1deg);
+  position:relative;
+  background: rgb(146, 228, 254);
+}
+
 .card__content {
   grid-column-start: 2;
 

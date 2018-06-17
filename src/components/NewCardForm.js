@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import emoji from 'emoji-dictionary';
 import './NewCardForm.css';
 
-const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+// const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
+
+const EMOJI_LIST = emoji.names.slice(0,599);
+// EMOJI_LIST.push(emoji.names.slice(900,999));
 
 export default class NewCardForm extends Component {
 
@@ -19,9 +22,13 @@ export default class NewCardForm extends Component {
       text: ''
     }
   }
+  myCallback = (event) => {
+    console.log(event);
+  }
 
   onInputChange = (event) => {
-    let updatedInput = this.state;
+
+    let updatedInput = Object.assign({}, this.state);
 
     updatedInput[event.target.name] = event.target.value;
 
@@ -32,17 +39,12 @@ export default class NewCardForm extends Component {
     event.preventDefault();
 
     this.props.addCardCallback(this.state)
-    let updateState = {};
-    updateState = this.state;
+    let updateState = Object.assign({}, this.state);
 
     updateState['emoji'] = '';
     updateState['text'] = '';
 
-    // inexplicably, this stopped working but directly assigning it fixed my bug
-    // this.setState = ({
-    //   emoji: '',
-    //   text: ''
-    // });
+    this.setState(updateState);
   }
 
   render() {
