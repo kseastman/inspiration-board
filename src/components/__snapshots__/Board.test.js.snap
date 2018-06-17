@@ -6,6 +6,7 @@ exports[`renders without crashing 1`] = `
 >
   <ChangeBoardForm
     allBoards={Array []}
+    changeBoardCallback={[Function]}
     currentBoard="kat"
   />
   <NewCardForm

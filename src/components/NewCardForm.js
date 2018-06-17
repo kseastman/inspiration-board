@@ -5,8 +5,16 @@ import './NewCardForm.css';
 
 // const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
 
-const EMOJI_LIST = emoji.names.slice(0,599);
-// EMOJI_LIST.push(emoji.names.slice(900,999));
+let EMOJI_LIST = ['']
+
+
+ emoji.names.slice(0,599).forEach((emoji) => {
+   EMOJI_LIST.push(emoji);
+ })
+
+emoji.names.slice(900,999).forEach((emoji) => {
+  EMOJI_LIST.push(emoji);
+})
 
 export default class NewCardForm extends Component {
 
@@ -60,7 +68,7 @@ export default class NewCardForm extends Component {
         <form className="new-card-form__form" onSubmit={this.onFormSubmit} >
           <article>
           <label className="new-card-form__form-label"  htmlFor="emoji">Emoji: </label>
-          <select className="new-card-form__form-select" name="emoji" value={this.state.emoji} onChange={this.onInputChange}>
+          <select className="new-card-form__form-select" name="emoji" defaultValue={this.state.emoji} onChange={this.onInputChange}>
             {selectEmoji}
           </select>
           </article>

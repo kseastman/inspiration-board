@@ -42,9 +42,10 @@ class Board extends Component {
       const cards = response.data;
 
       this.setState({cards: cards});
+      this.props.updateStatusCallback(``, 'success')
     })
     .catch((error) => {
-      console.log(error)
+      this.props.updateStatusCallback(error.message, 'error')
     })
 
     axios.get(BASE_URL)
@@ -57,9 +58,10 @@ class Board extends Component {
       this.setState(updateState);
     })
     .catch((error) => {
-      console.log(error)
+      this.props.updateStatusCallback(error.message, 'error')
     })
   }
+  
   updateCard = (card, index) => {
     const editingCard = this.state.cards[index].card
 
@@ -75,9 +77,10 @@ class Board extends Component {
       updateState['editing'] = '';
 
       this.setState(updateState);
+      this.props.updateStatusCallback(`Card updated with ${card.emoji}: ${card.text} `, 'success')
     })
     .catch((error) => {
-      console.log(error)
+      this.props.updateStatusCallback(error.message, 'error')
     })
 
 
@@ -98,7 +101,7 @@ class Board extends Component {
       this.setState(updateState);
     })
     .catch((error) => {
-      console.log(error)
+      this.props.updateStatusCallback(error.message, 'error')
     })
 
   }
@@ -119,7 +122,7 @@ class Board extends Component {
 
     })
     .catch((error) => {
-      console.log(error)
+      this.props.updateStatusCallback(error.message, 'error')
     })
   }
 
@@ -164,7 +167,9 @@ class Board extends Component {
 
 Board.propTypes = {
   url: PropTypes.string.isRequired,
-  boardName: PropTypes.string.isRequired
+  boardName: PropTypes.string.isRequired,
+  changeBoardCallback: PropTypes.func.isRequired,
+  updateStatusCallback: PropTypes.func.isRequired
 };
 
 export default Board;

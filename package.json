@@ -2,6 +2,7 @@
   "name": "adas-inspiring-board",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kseastman.github.io/inspiration-board/",
   "dependencies": {
     "axios": "^0.18.0",
     "emoji-dictionary": "^1.0.9",
@@ -11,11 +12,11 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -29,6 +30,5 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
-  },
-  "homepage": "http://adagold.github.io/inspiration-board"
+  }
 }

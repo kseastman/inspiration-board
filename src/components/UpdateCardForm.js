@@ -4,8 +4,15 @@ import emoji from 'emoji-dictionary';
 import './UpdateCardForm.css';
 
 // const EMOJI_LIST = ["", "heart_eyes", "beer", "clap", "sparkling_heart", "heart_eyes_cat", "dog"]
-const EMOJI_LIST = emoji.names.slice(0,599);
-// EMOJI_LIST.push(emoji.names.slice(900,999));
+let EMOJI_LIST = ['']
+
+emoji.names.slice(0,599).forEach((emoji) => {
+   EMOJI_LIST.push(emoji);
+ })
+
+emoji.names.slice(900,999).forEach((emoji) => {
+  EMOJI_LIST.push(emoji);
+})
 
 export default class UpdateCardForm extends Component {
 
